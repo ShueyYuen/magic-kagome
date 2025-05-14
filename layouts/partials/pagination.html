@@ -72,7 +72,9 @@
             {{- end -}}
           </li>
         {{- end -}}
-        {{- $page = $page.Next -}}
+        {{- if $page.Next -}}
+          {{- $page = $page.Next -}}
+        {{- end -}}
       {{- end -}}
 
       {{/* 如果当前页小于总页数-3，显示右侧省略号 */}}
