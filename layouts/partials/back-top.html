@@ -1,0 +1,53 @@
+<a
+  href="#top"
+  class="back-top--btn soft-style--box soft-size--large"
+  title="Back to top"
+>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    stroke-width="2"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+  >
+    <polyline points="18 15 12 9 6 15"></polyline>
+  </svg>
+</a>
+<style>
+  @media screen and (prefers-reduced-motion: no-preference) {
+    html {
+      scroll-behavior: smooth;
+    }
+  }
+  @keyframes backTopAnimation {
+    0% {
+      transform: translateX(5rem);
+    }
+    10% {
+      transform: translateX(0);
+    }
+  }
+  .soft-style--box.back-top--btn {
+    position: fixed;
+    bottom: 3rem;
+    right: -1rem;
+    display: flex;
+    flex-direction: column;
+    color: var(--theme-text-stress);
+    padding: 0.5rem 1rem;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    opacity: 0.8;
+    width: 4rem;
+    animation-name: backTopAnimation;
+    animation-duration: 0.5s;
+    animation-direction: alternate;
+    animation-timeline: scroll(block nearest);
+  }
+  .back-top--btn svg {
+    width: 2rem;
+    height: 2rem;
+  }
+</style>

@@ -1,0 +1,78 @@
+#waline {
+    & .wl-comment {
+        border-radius: var(--radius);
+        background-color: var(--theme-bg-primary);
+        box-shadow: var(--soft-shadow) var(--soft-shadow) calc(var(--soft-shadow) * 2) var(--theme-bg-shadow), calc(-1 * var(--soft-shadow)) calc(-1 * var(--soft-shadow)) calc(var(--soft-shadow) * 2) var(--theme-bg-high);
+        --radius: var(--soft-large-radius);
+        border: none;
+
+        & .wl-panel {
+            background-color: var(--theme-bg-primary);
+        }
+
+        & .wl-editor:focus {
+            background-color: var(--theme-bg-high);
+        }
+    }
+
+    & .vinfo {
+        & button {
+            border-radius: 10rem;
+        }
+    }
+
+    .wl-login-nick {
+        word-break: keep-all;
+    }
+
+    .wl-preview {
+        color: var(--theme-text-primary);
+    }
+
+    .wl-tab-wrapper {
+        button {
+            border-radius: 5px;
+        }
+    }
+
+    & .wl-gif-popup {
+        &>input {
+            color: var(--theme-text-primary);
+            background-color: var(--theme-bg-primary);
+        }
+
+        .wl-gallery {
+            &::-webkit-scrollbar {
+                width: 6px;
+                height: 4px;
+            }
+
+            &::-webkit-scrollbar-track {
+                border-radius: 4px;
+                background-color: transparent;
+            }
+
+            &::-webkit-scrollbar-thumb {
+                border-radius: 4px;
+                background-color: var(--waline-active-color);
+                transition: transitions(background-color, 0.3s);
+
+                &:hover {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+    .wl-login-info {
+        margin-left: .5em;
+    }
+
+    .wl-reaction-title {
+        color: var(--theme-text-primary);
+    }
+}
+
+.wl-gif-popup .wl-gallery-column img {
+    border-color: var(--theme-bg-high);
+}

@@ -1,0 +1,60 @@
+<div class="soft-style--box github">
+  <style>
+.github {
+    border: 1px solid var(--color-contrast-low);
+    border-radius: 3px;
+    margin: 0 auto;
+    margin-bottom: 1em;
+    padding: 1em;
+}
+.github .logo {
+    display: flex;
+    align-items: center;
+}
+.github .github-icon {
+    width: 1.2em;
+    height: 1.2em;
+    margin-right: 0.5em;
+    fill: var(--theme-text-primary);
+    transition: all .5s;
+}
+.github .name {
+    font-weight: bold;
+    color: var(--color-primary);
+    text-decoration: none;
+}
+.github .description {
+    margin: 0.5em 0;
+    color: var(--theme-text-primary);
+    text-align: justify;
+    font-size: 90%;
+}
+.github .description:last-child {
+    margin-bottom: 0;
+}
+.github .language-color {
+    position: relative;
+    top: 1px;
+    display: inline-block;
+    width: 0.85em;
+    height: 0.85em;
+    border-radius: 50%;
+}
+.github .language-name {
+    color: var(--theme-text-primary);
+    font-size: 90%;
+    margin-left: 0.5em;
+}
+  </style>
+    <div class="logo">
+        {{ replace $.Site.Data.SVG.repository "icon" "icon github-icon" | safeHTML }}
+        <a class="name" href={{ .Get "link" }} target="_blank">{{ .Get "name" }}</a>
+    </div>
+    <div class="description">{{ .Get "description" }}</div>
+{{ if .Get "language" }}
+    <div class="language">
+        <span class="language-color" style="background-color: {{ .Get "color" }}"></span>
+        <span class="language-name">{{ .Get "language" }}</span>
+    </div>
+{{ end }}
+</div>

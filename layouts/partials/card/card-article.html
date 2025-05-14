@@ -1,0 +1,40 @@
+<div class="article-item">
+  <section class="article-card card-container content-padding-large soft-size--large soft-style--box">
+    {{- $CDNImgDestination := .Params.cover -}}
+    {{- if (and .Site.Params.CDN.enable (not hugo.IsServer)) -}}
+      {{- if $CDNImgDestination -}}
+        {{- if not (or (hasPrefix $CDNImgDestination "http://") (hasPrefix $CDNImgDestination "https://") (hasPrefix $CDNImgDestination "data:image")) -}}
+          {{- $CDNImgDestination = (print .Site.Params.CDN.host (path.Join .Params.cover)) -}}
+        {{- end -}}
+      {{- end -}}
+    {{- end -}}
+    <div class="card-cover" {{- with $CDNImgDestination -}} background-image-lazy data-img="{{- . -}}" {{- end -}}></div>
+    <div class="card-text">
+      <a href="{{- .Permalink | safeURL -}}"><h4 class="card-text--title">{{- .Title -}}</h4></a>
+
+      <p class="card-text--row">{{- .Date.Format "January 2, 2006" -}}</p>
+
+      {{- $taxo := "categories" -}}
+      {{- with .Param $taxo -}}
+        <ul class="card-text--tag">
+          {{- range $index, $director := . -}}
+            {{- with $.Site.GetPage (printf "/%s/%s" $taxo $director) -}}
+              <li><a href="{{- .Permalink | safeURL -}}">{{- $director -}}</a></li>
+            {{- end -}}
+          {{- end -}}
+        </ul>
+      {{- end -}}
+
+      {{- $taxo := "tags" -}}
+      {{- with .Param $taxo -}}
+        <ul class="card-text--tag">
+          {{- range $index, $director := . -}}
+            {{- with $.Site.GetPage (printf "/%s/%s" $taxo $director) -}}
+              <li><a href="{{- .Permalink | safeURL -}}">{{- $director -}}</a></li>
+            {{- end -}}
+          {{- end -}}
+        </ul>
+      {{- end -}}
+    </div>
+  </section>
+</div>

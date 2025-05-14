@@ -1,0 +1,47 @@
+{{- $id := .Get "id" | default "" -}} {{/* dark、light */}}
+{{- $theme := .Get "theme" | default "dark" -}} {{/* dark、light */}}
+{{- $tab := .Get "tab" | default "result" -}} {{/* result、js、css、html */}}
+{{- $processor := .Get "processor" | default "" -}} {{/* ''、scss、less */}}
+{{- $readonly := .Get "readonly" | default false -}} {{/* ''、scss、less */}}
+{{- $tsConfig := .Get "tsc" | default "" -}} {{/* experimentalDecorators、experimentalDecorators */}}
+
+{{/* 参数：js、html、css、head、jses、cses */}}
+
+<div id="{{ $id }}" class="playground-view">
+  <iframe
+    id="{{ $id }}-iframe"
+    src=""
+    frameborder="0"
+    width="100%"
+    height="400px"
+    allowtransparency="true"
+    allowfullscreen="true"
+    allow="clipboard-read; clipboard-write https://code.shuey.fun/;"
+    sandbox="allow-forms allow-modals allow-pointer-lock allow-popups allow-same-origin allow-scripts allow-top-navigation-by-user-activation allow-downloads"
+  ></iframe>
+  <div style="display: none" id="{{ $id }}-params">{{ .Inner }}</div>
+  <script>
+    {
+        const paramsData = document.getElementById("{{ $id }}-params");
+        const tsCompilerOption = {{ $tsConfig }};
+        const useTypeScript = !!tsCompilerOption;
+        const queryMap = {
+            pre: {{ $processor }},
+            ts: +useTypeScript,
+            tsc: useTypeScript ? JSON.parse(tsCompilerOption) : undefined
+        };
+        for (let element of paramsData.children) {
+            const name = element.getAttribute('name');
+            const inner = element.innerHTML.trim();
+            if (element.getAttribute('array') === 'true') {
+                queryMap[name] = inner.split('\n');
+            } else {
+                queryMap[name] = inner;
+            }
+        }
+        paramsData.remove();
+        const codeBase = window.btoa(encodeURIComponent(JSON.stringify(queryMap)));
+        document.getElementById("{{ $id }}-iframe").setAttribute("src", "//code.shuey.fun/?readonly={{ $readonly }}&tab={{ $tab }}&theme={{ $theme }}&code=" + codeBase);
+    }
+  </script>
+</div>

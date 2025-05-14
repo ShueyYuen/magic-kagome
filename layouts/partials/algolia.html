@@ -1,0 +1,58 @@
+{{- if .Site.Params.algolia.appId -}}
+<div id="docsearch"></div>
+<script>
+  function initDocSearch() {
+    const translations = {
+      button: {
+        buttonText: 'Search',
+        buttonAriaLabel: 'Search',
+      },
+      modal: {
+        searchBox: {
+          resetButtonTitle: 'Clear the query',
+          resetButtonAriaLabel: 'Clear the query',
+          cancelButtonText: '取消',
+          cancelButtonAriaLabel: '取消',
+        },
+        startScreen: {
+          recentSearchesTitle: '最近',
+          noRecentSearchesText: '最近没有感兴趣的话题？',
+          saveRecentSearchButtonTitle: 'Save this search',
+          removeRecentSearchButtonTitle: 'Remove this search from history',
+          favoriteSearchesTitle: '收藏的文章',
+          removeFavoriteSearchButtonTitle: '也许我的博客一直落伍？',
+        },
+        errorScreen: {
+          titleText: 'Unable to fetch results',
+          helpText: 'You might want to check your network connection.',
+        },
+        footer: {
+          selectText: '选择',
+          selectKeyAriaLabel: 'Enter key',
+          navigateText: '导航',
+          navigateUpKeyAriaLabel: 'Arrow up',
+          navigateDownKeyAriaLabel: 'Arrow down',
+          closeText: '关闭',
+          closeKeyAriaLabel: 'Escape key',
+          searchByText: '致谢',
+        },
+        noResultsScreen: {
+          noResultsText: '似乎我没有聊过',
+          suggestedQueryText: '也许我不久就会涉及？？',
+          reportMissingResultsText: 'Believe this query should return results?',
+          reportMissingResultsLinkText: 'Let us know.',
+        },
+      },
+    };
+    docsearch({
+      container: '#docsearch',
+      placeholder: '也许有你感兴趣的内容~~',
+      translations: translations,
+      appId: {{- .Site.Params.algolia.appId -}},
+      indexName: {{- .Site.Params.algolia.indexName -}},
+      apiKey: {{- .Site.Params.algolia.searchOnlyKey -}},
+    });
+  }
+</script>
+<script src="https://fastly.jsdelivr.net/npm/@docsearch/js@3" defer onload="initDocSearch()"></script>
+{{- end -}}

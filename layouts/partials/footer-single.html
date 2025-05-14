@@ -1,0 +1,73 @@
+{{/* math */}}
+{{- if and (eq .Kind "page") .Params.math -}}
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+{{- end -}}
+
+{{/* aplery */}}
+{{- if and (eq .Kind "page") .Params.aplayer }}
+<link rel="stylesheet" href="https://unpkg.com/aplayer@1.10.1/dist/APlayer.min.css">
+<script type="text/javascript" src="https://unpkg.com/aplayer@1.10.1/dist/APlayer.min.js"></script>
+{{- end -}}
+
+{{/* dplayer */}}
+{{- if and (eq .Kind "page") .Params.dplayer -}}
+<script type="text/javascript" src="https://unpkg.com/hls.js@1.0.1/dist/hls.js"></script>
+<script type="text/javascript" src="https://unpkg.com/dplayer@1.25.1/dist/DPlayer.min.js"></script>
+{{ end }}
+
+
+{{- if and (eq .Kind "page") (or .Params.dplayer .Params.aplayer) -}}
+<script type="text/javascript">
+(function () {
+  function toCamel(str) {
+    const arrs = str.split('-');
+    if (arrs.length === 1) return arrs[0];
+    return arrs
+      .reduce((accumulator, currentValue) => accumulator + currentValue.toLowerCase().replace(/( |^)[a-z]/g, v => v.toUpperCase()));
+  }
+
+  /**
+   * 处理aplayer || dplayer 参数
+   * @param el aplayer || dplayer dom
+   * @returns 配置项参数
+   */
+  function formatAttr(el) {
+    const config = {}
+    const numberList = ['lrcType']
+    const boolMap = new Map([
+      ['true', true],
+      ['false', false],
+      [null, undefined],
+    ])
+    const attrs = el.getAttributeNames().filter(key => key.startsWith('config-'))
+    attrs.forEach(attr => {
+      const key = toCamel(attr.replace('config-', ''))
+      const value = el.getAttribute(attr)
+      const toBool = boolMap.get(value)
+
+      if (toBool !== undefined) {             /** 处理bool值 */
+        config[key] = toBool
+      } else if (numberList.includes(key)) {  /** 处理number值 */
+        config[key] = parseInt(value || '0')
+      } else {                                /** string */
+        config[key] = value
+      }
+    })
+    return config
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    DPlayer && document.querySelectorAll('.dplayer-box').forEach((el) => {
+      const params = { container: el, video: { ...el.dataset } }
+      const config = formatAttr(el)
+      new DPlayer(Object.assign({}, config, params))
+    });
+    APlayer && document.querySelectorAll('.aplayer-box').forEach((el) => {
+      const params = { container: el, audio: { ...el.dataset } }
+      const config = formatAttr(el)
+      new APlayer(Object.assign({}, config, params))
+    });
+  });
+})();
+</script>
+{{ end }}

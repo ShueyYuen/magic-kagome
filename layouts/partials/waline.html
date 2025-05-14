@@ -1,0 +1,34 @@
+<div style="padding: 0 10px;">
+    <div id="waline"></div>
+</div>
+<script type="module">
+    import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
+    const link = document.createElement('link');
+    link.setAttribute('rel', 'stylesheet');
+    link.setAttribute('type', 'text/css');
+    link.setAttribute('href', '//unpkg.com/@waline/client@v3/dist/waline.css');
+    document.head.appendChild(link);
+
+    const locale = {
+        placeholder: '欢迎评论, 填写邮箱可以在评论被回复时收到通知哦~',
+        sofa: '来发评论互动吧~',
+        admin: '博主',
+    };
+    init({
+        el: '#waline',
+        lang: 'zh-CN',
+        locale,
+        serverURL: 'https://comment.shuey.fun',
+{{- if not hugo.IsServer -}}
+        pageview: true,
+{{- end -}}
+        comment: true,
+        // avatar: 'retro',
+        dark: '.theme-dark',
+        emoji: [
+            'https://unpkg.com/@waline/emojis@1.0.1/bilibili',
+            'https://unpkg.com/@waline/emojis@1.0.1/tw-natural',
+        ],
+    });
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>

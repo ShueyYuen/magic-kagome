@@ -1,0 +1,24 @@
+:root.theme-light {
+  --docsearch-primary-color: #2ecc71;
+}
+:root.theme-dark {
+  --docsearch-primary-color: #2ecc71;
+}
+
+svg .cls-1, svg .cls-2 {
+  fill: var(--docsearch-primary-color);
+}
+
+.DocSearch-NoResults-Prefill-List {
+  margin-top: 10px;
+}
+
+@media #{$mq-mb} {
+  .header-container {
+    .header-nav--list #docsearch {
+      .DocSearch {
+        margin: 0 auto;
+      }
+    }
+  }
+}

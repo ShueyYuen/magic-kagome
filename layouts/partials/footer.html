@@ -1,0 +1,53 @@
+<footer class="footer-container layout-block">
+  {{- with .Site.Menus.social -}}
+  <div class="social-icons">
+    {{- range . -}}
+      <a class="soft-size--primary soft-style--box" href="{{- .URL | safeURL -}}" target="_blank" rel="noopener noreferrer">
+        {{- if eq .Identifier "github" -}}  {{/* github */}}
+        <i class="iconfont icon-github"></i>
+        {{- end -}}
+        {{- if eq .Identifier "email" -}}  {{/* email */}}
+        <i class="iconfont icon-mail4"></i>
+        {{- end -}}
+        {{- if eq .Identifier "bilibili" -}}  {{/* bilibili */}}
+        <i class="iconfont icon-bilibilia"></i>
+        {{- end -}}
+        {{- if eq .Identifier "zhihu" -}}  {{/* zhihu */}}
+        <i class="iconfont icon-zhihu"></i>
+        {{- end -}}
+        {{- if eq .Identifier "csdn" -}}  {{/* csdn */}}
+        <i class="iconfont icon-csdn"></i>
+        {{- end -}}
+      </a>
+    {{- end -}}
+  </div>
+  {{- end -}}
+
+  <div class="colour-bar"></div>
+
+  {{- with .Site.Copyright -}}
+  <p>{{- . | safeHTML -}} /
+    <a href="https://comment.shuey.fun/ui" target="_blank">admin</a> /
+    <a href="https://store.shuey.fun/" target="_blank">store</a> </p>
+  {{- end -}}
+
+  {{- with .Site.Params.Beian -}}
+  <p><a href="http://www.miitbeian.gov.cn" target="_blank">{{- . -}}</a></p>
+  {{- end -}}
+
+  <p>
+    <a href="javascript:;" id="theme-light">🌞 {{ i18n "theme.light" -}}</a>
+    <a href="javascript:;" id="theme-dark">🌛 {{ i18n "theme.dark" -}}</a>
+    <a href="javascript:;" id="theme-auto">🤖️ {{ i18n "theme.auto" -}}</a>
+  </p>
+  {{- if .Site.Params.clarityID -}}
+  <!-- Clarity tracking code for https://shuey.fun/ -->
+  <script>
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i+"?ref=bwt";
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", {{- .Site.Params.clarityID -}});
+  </script>
+  {{- end -}}
+</footer>

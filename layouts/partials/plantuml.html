@@ -1,0 +1,33 @@
+  <!-- PlantUML -->
+  <script src="https://fastly.jsdelivr.net/gh/jmnote/plantuml-encoder@1.2.4/dist/plantuml-encoder.min.js" integrity="sha256-Qsk2KRBCN5qVZX7B+8+2IvQl1Aqc723qV1tBCQaVoqo=" crossorigin="anonymous"></script>
+  <script>
+    window.reloadPlantUML = function(){
+      const plantumlPrefix = "language-plantuml";
+      const light = document.documentElement.className.indexOf('theme-dark') == -1;
+      let plantumlTheme = light ? "materia-outline" : "cyborg-outline";
+      Array.prototype.forEach.call(document.querySelectorAll("[class^=" + plantumlPrefix + "]"), function(code){
+        let codeText = code.innerText.trim();
+        if (codeText.indexOf('!theme') == -1) {
+          let themePosition = codeText.indexOf('\n');
+          codeText = `${codeText.slice(0, themePosition)}
+            \n!theme ${plantumlTheme}${codeText.slice(themePosition)}`;
+        }
+        if (!plantumlEncoder) {
+          return;
+        }
+        const image = document.createElement("IMG");
+        const preImageNode = code.parentNode.firstChild;
+        const hasImage = preImageNode && preImageNode.tagName === 'IMG';
+        code.parentNode.className = 'plantuml-center';
+        image.loading = 'lazy'; // Lazy loading
+        image.src = 'https://www.plantuml.com/plantuml/' + (light ? 'svg' : 'dsvg') + '/~1' + plantumlEncoder.encode(codeText);
+        code.parentNode.insertBefore(image, code);
+        code.style.display = 'none';
+        if (hasImage) {
+          preImageNode.remove();
+        }
+        code.style.display = 'none';
+      });
+    }
+    window.reloadPlantUML();
+  </script>

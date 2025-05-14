@@ -1,0 +1,61 @@
+{{- $pages := $.Paginator -}}
+{{- if gt $pages.TotalPages 1 -}}
+  <div class="pagination-container layout-block">
+
+    {{- $pageFirst  := $pages.First -}}
+    {{- $pageLast   := $pages.Last -}}
+    {{- $isFirst   := eq $pageFirst.PageNumber $pages.PageNumber -}}
+    {{- $isLast    := eq $pageLast.PageNumber $pages.PageNumber -}}
+    <div style="color: aliceblue;">{{- $pageFirst -}}{{- $pageLast -}}</div>
+
+    <ul class="pagination-list">
+      <li class="page-item"> {{/* prev page */}}
+        {{- if $pages.HasPrev -}}
+          <a href="{{- $pages.Prev.URL -}}" class="page-link" aria-label="First">ʚ</a>
+        {{- else -}}
+          <span>ʚ</span>
+        {{- end -}}
+      </li>
+
+      {{- with $pageFirst -}} {{/* first page */}}
+      <li class="page-item">
+        {{- if $isFirst -}}
+          <span>{{- .PageNumber -}}</span>
+        {{- else -}}
+          <a href="{{- .URL -}}" class="page-link" aria-label="First">{{- .PageNumber -}}</a>
+        {{- end -}}
+      </li>
+      {{- end -}}
+
+      {{- if (and (ge $pages.PageNumber 5) (not $isFirst)) -}}
+        <li class="page-item"><span>{{- $pages.PageNumber -}}…</span></li>
+      {{- end -}}
+
+      {{- if (and (not $isFirst) (not $isLast)) -}}
+        <li class="page-item"><span>{{- $pages.PageNumber -}}</span></li>
+      {{- end -}}
+
+      {{- if (and (le $pages.PageNumber (sub $pages.TotalPages 2)) (not $isLast)) -}}
+        <li class="page-item"><span>{{- $pages.PageNumber -}}…</span></li>
+      {{- end -}}
+
+      {{- with $pages.Last -}} {{/* last page */}}
+      <li class="page-item">
+        {{- if $isLast -}}
+          <span>{{- .PageNumber -}}</span>
+        {{- else -}}
+          <a href="{{- .URL -}}" class="page-link" aria-label="Last">{{- .PageNumber -}}</a>
+        {{- end -}}
+      </li>
+      {{- end -}}
+
+      <li class="page-item"> {{/* next page */}}
+        {{- if $pages.HasNext -}}
+          <a href="{{- $pages.Next.URL -}}" class="page-link" aria-label="First">ɞ</a>
+        {{- else -}}
+          <span>ɞ</span>
+        {{- end -}}
+      </li>
+    </ul>
+  </div>
+{{- end -}}

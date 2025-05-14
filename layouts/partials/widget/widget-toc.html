@@ -1,0 +1,46 @@
+{{- $toc_show_len := or .Site.Params.toc_show_len 0 -}}
+{{- if and (gt .WordCount $toc_show_len ) (.Params.toc) -}}
+<section class="aside-widget widget-toc content-padding-large soft-size--large soft-style--box">
+  <h2 class="widget-header">
+    <div class="title">
+      <span>{{- i18n "toc" -}}</span>
+    </div>
+  </h2>
+  <div class="widget-body">
+    {{- .TableOfContents -}}
+  </div>
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const headers = document.querySelectorAll('.markdown-body h2, .markdown-body h3');
+      const tocLinks = Array.from(document.querySelectorAll('#TableOfContents a'))
+        .reduce((acc, link) => {
+          acc.set(link.getAttribute('href'), link);
+          return acc;
+        }, new Map());
+
+      function highlightTocLink() {
+        let index = 0;
+        headers.forEach((header, i) => {
+          const rect = header.getBoundingClientRect();
+          if (rect.top <= window.innerHeight / 4) {
+            index = i;
+          }
+        });
+
+        const header = headers[index];
+        if (!header) {
+          return;
+        }
+        tocLinks.forEach(link => link.classList.remove('active'));
+        const tocLink = tocLinks.get('#' + header.id);
+        if (tocLink) {
+          tocLink.classList.add('active');
+        }
+      }
+
+      highlightTocLink();
+      window.addEventListener('scroll', highlightTocLink);
+    });
+  </script>
+</section>
+{{- end -}}

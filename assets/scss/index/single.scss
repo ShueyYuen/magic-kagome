@@ -1,0 +1,40 @@
+$slider-width: 320px;
+
+.single-container {
+  display: flex;
+  align-items: flex-start;
+  overflow: visible;
+
+  .article-content {
+    padding: var(--layout-padding-x);
+  }
+
+  .widget-info {
+    position: sticky;
+    top: 0;
+    width: #{$slider-width};
+    min-width: #{$slider-width};
+    display: flex;
+    flex-direction: column;
+  }
+
+  @include mq-pc {
+    .article-info {
+      flex: 0 1 calc(100% - #{$slider-width});
+      min-width: calc(100% - #{$slider-width});
+    }
+    .widget-info {
+      display: flex;
+    }
+  }
+
+  @include mq-mb {
+    .article-info {
+      flex: 1 1 100%;
+      width: 100%;
+    }
+    .widget-info {
+      display: none;
+    }
+  }
+}
