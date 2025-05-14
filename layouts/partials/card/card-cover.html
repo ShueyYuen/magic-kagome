@@ -44,6 +44,11 @@
         </ul>
       {{- end -}}
     {{- end -}}
+    {{- if .Params.cover_author -}}
+      <div class="card-cover--copyright">
+        <a href="{{- .Params.cover_source | safeURL -}}" target="_blank">@{{- .Params.cover_author -}}</a>
+      </div>
+    {{- end -}}
   </div>
 
 </div>
