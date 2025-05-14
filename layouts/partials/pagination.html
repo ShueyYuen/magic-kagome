@@ -6,19 +6,23 @@
     {{- $pageLast   := $pages.Last -}}
     {{- $isFirst   := eq $pageFirst.PageNumber $pages.PageNumber -}}
     {{- $isLast    := eq $pageLast.PageNumber $pages.PageNumber -}}
-    <div style="color: aliceblue;">{{- $pageFirst -}}{{- $pageLast -}}</div>
+    {{- $currentPage := $pages.PageNumber -}}
+    {{- $totalPages := $pages.TotalPages -}}
 
     <ul class="pagination-list">
-      <li class="page-item"> {{/* prev page */}}
+      <li class="{{- if $pages.HasPrev -}} page-item {{- else -}} page-item disabled {{- end -}}"> {{/* prev page */}}
         {{- if $pages.HasPrev -}}
-          <a href="{{- $pages.Prev.URL -}}" class="page-link" aria-label="First">ʚ</a>
+          <a href="{{- $pages.Prev.URL -}}" class="page-link" aria-label="Previous">
+            {{ $.Site.Data.SVG.angleLeft | safeHTML }}
+          </a>
         {{- else -}}
-          <span>ʚ</span>
+          <span>{{ $.Site.Data.SVG.angleLeft | safeHTML }}</span>
         {{- end -}}
       </li>
 
-      {{- with $pageFirst -}} {{/* first page */}}
-      <li class="page-item">
+      {{/* 显示第一页 */}}
+      {{- with $pageFirst -}}
+      <li class="{{- if $isFirst -}} page-item active {{- else -}} page-item {{- end -}}">
         {{- if $isFirst -}}
           <span>{{- .PageNumber -}}</span>
         {{- else -}}
@@ -27,20 +31,68 @@
       </li>
       {{- end -}}
 
-      {{- if (and (ge $pages.PageNumber 5) (not $isFirst)) -}}
-        <li class="page-item"><span>{{- $pages.PageNumber -}}…</span></li>
+      {{/* 如果当前页大于4，显示左侧省略号 */}}
+      {{- if gt $currentPage 4 -}}
+        <li class="page-item ellipsis">
+          {{- $jumpPageNum := sub $currentPage 5 -}}
+          {{- if lt $jumpPageNum 1 -}}
+            {{- $jumpPageNum = 1 -}}
+          {{- end -}}
+          {{- $jumpPage := $pages.First -}}
+          {{- range seq 2 $jumpPageNum -}}
+            {{- $jumpPage = $jumpPage.Next -}}
+          {{- end -}}
+          <a href="{{- $jumpPage.URL -}}" class="page-link jump-link" title="前往前5页" aria-label="JumpBackward">{{ $.Site.Data.SVG.ellipsis | safeHTML }}{{ $.Site.Data.SVG.anglesLeft | safeHTML }}</a>
+        </li>
       {{- end -}}
 
-      {{- if (and (not $isFirst) (not $isLast)) -}}
-        <li class="page-item"><span>{{- $pages.PageNumber -}}</span></li>
+      {{/* 显示当前页的前两页 */}}
+      {{- $loopStart := (sub $currentPage 2) -}}
+      {{- if lt $loopStart 2 -}}
+        {{- $loopStart = 2 -}}
+      {{- end -}}
+      
+      {{- $loopEnd := (add $currentPage 2) -}}
+      {{- if gt $loopEnd (sub $totalPages 1) -}}
+        {{- $loopEnd = (sub $totalPages 1) -}}
       {{- end -}}
 
-      {{- if (and (le $pages.PageNumber (sub $pages.TotalPages 2)) (not $isLast)) -}}
-        <li class="page-item"><span>{{- $pages.PageNumber -}}…</span></li>
+      {{- $page := $pageFirst -}}
+      {{- range seq 2 $loopStart -}}
+        {{- $page = $page.Next -}}
       {{- end -}}
 
-      {{- with $pages.Last -}} {{/* last page */}}
-      <li class="page-item">
+      {{- range seq $loopStart $loopEnd -}}
+        {{- if and (gt . 1) (lt . $totalPages) -}}
+          <li class="{{- if eq . $currentPage -}} page-item active {{- else -}} page-item {{- end -}}">
+            {{- if eq . $currentPage -}}
+              <span>{{- . -}}</span>
+            {{- else -}}
+              <a href="{{- $page.URL -}}" class="page-link">{{- . -}}</a>
+            {{- end -}}
+          </li>
+        {{- end -}}
+        {{- $page = $page.Next -}}
+      {{- end -}}
+
+      {{/* 如果当前页小于总页数-3，显示右侧省略号 */}}
+      {{- if lt $currentPage (sub $totalPages 3) -}}
+        <li class="page-item ellipsis">
+          {{- $jumpPageNum := add $currentPage 5 -}}
+          {{- if gt $jumpPageNum $totalPages -}}
+            {{- $jumpPageNum = $totalPages -}}
+          {{- end -}}
+          {{- $jumpPage := $pageFirst -}}
+          {{- range seq 2 $jumpPageNum -}}
+            {{- $jumpPage = $jumpPage.Next -}}
+          {{- end -}}
+          <a href="{{- $jumpPage.URL -}}" class="page-link jump-link" title="前往后5页" aria-label="JumpForward">{{ $.Site.Data.SVG.ellipsis | safeHTML }}{{ $.Site.Data.SVG.anglesRight | safeHTML }}</a>
+        </li>
+      {{- end -}}
+
+      {{/* 显示最后一页 */}}
+      {{- with $pageLast -}}
+      <li class="{{- if $isLast -}} page-item active {{- else -}} page-item {{- end -}}">
         {{- if $isLast -}}
           <span>{{- .PageNumber -}}</span>
         {{- else -}}
@@ -49,11 +101,13 @@
       </li>
       {{- end -}}
 
-      <li class="page-item"> {{/* next page */}}
+      <li class="{{- if $pages.HasNext -}} page-item {{- else -}} page-item disabled {{- end -}}"> {{/* next page */}}
         {{- if $pages.HasNext -}}
-          <a href="{{- $pages.Next.URL -}}" class="page-link" aria-label="First">ɞ</a>
+          <a href="{{- $pages.Next.URL -}}" class="page-link" aria-label="Next">
+            {{ $.Site.Data.SVG.angleRight | safeHTML }}
+          </a>
         {{- else -}}
-          <span>ɞ</span>
+          <span>{{ $.Site.Data.SVG.angleRight | safeHTML }}</span>
         {{- end -}}
       </li>
     </ul>
