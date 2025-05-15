@@ -2,9 +2,6 @@
 <html>
 {{- partial "head.html" . -}}
 <body>
-    <div style="color: red; position: absolute; z-index: 10000;">
-        {{ .Kind }}
-    </div>
     {{- partial "header.html" . -}}
     <main id="content">
         {{- block "main" . -}}{{- end -}}
