@@ -2,7 +2,7 @@
   {{- with .Site.Menus.social -}}
   <div class="social-icons">
     {{- range . -}}
-      <a class="soft-size--primary soft-style--box" href="{{- .URL | safeURL -}}" target="_blank" rel="noopener noreferrer">
+      <a class="soft-size--primary soft-style--box" href="{{- .URL | safeURL -}}" target="_blank" rel="noopener noreferrer" title="{{- .Name -}}">
         {{- index $.Site.Data.social .Identifier | safeHTML -}}
       </a>
     {{- end -}}
