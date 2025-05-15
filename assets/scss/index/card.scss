@@ -9,6 +9,7 @@
     .card-cover {
       position: relative;
       overflow: hidden;
+      transition: 1s filter linear;
 
       >img {
         display: block;
@@ -103,17 +104,24 @@
   }
 }
 
-.article-item {
+.theme-dark {
   .card-container {
     .card-cover {
       filter: brightness(0.9) grayscale(0.2);
-      transition: filter 0.3s;
     }
 
     &:hover {
       .card-cover {
         filter: brightness(1.1) grayscale(0);
       }
+    }
+  }
+}
+
+.theme-light {
+  .card-container:hover {
+    .card-cover {
+      filter: brightness(0.9) grayscale(0.2);
     }
   }
 }

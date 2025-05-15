@@ -10,13 +10,17 @@
     list-style: none;
 
     li {
-      padding: 6px 12px;
       margin: 0 3px;
       transition: color 0.3s ease;
       font-weight: bolder;
       font: var(--base-font);
       font-weight: bolder;
       color: var(--theme-text-primary);
+      display: flex;
+
+      > * {
+        padding: 6px 12px;
+      }
 
       a {
         transition: transitions(color, 0.3s);
@@ -31,7 +35,8 @@
       }
 
       &.active {
-        background-color: rgba(255, 255, 255, 0.1);
+        @include soft-box--active(var(--radius));
+        color: var(--theme-text-active);
         border-radius: 3px;
       }
 
