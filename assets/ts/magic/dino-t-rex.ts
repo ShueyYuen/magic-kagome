@@ -654,7 +654,7 @@ onActivate((context) => {
   wrapper.style.textAlign = 'center';
   container.append(wrapper);
   ElementAnimator.show(wrapper, [
-    { height: '0', opacity: '0' },
+    { height: '0', opacity: '0', overflow: 'hidden' },
     { height: '170px', opacity: '1' },
   ]);
 

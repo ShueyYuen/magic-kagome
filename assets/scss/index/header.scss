@@ -97,11 +97,6 @@
   }
 }
 
-.iconfont {
-  font-size: var(--font-common-size);
-  color: var(--theme-text-primary);
-}
-
 @media #{$mq-pc} {
   .header-container {
     .header-nav--btn {

@@ -16,16 +16,10 @@
       width: 45px;
       height: 45px;
       padding: 10px;
+    }
 
-      &:hover .iconfont {
-        color: var(--theme-text-stress);
-      }
-
-      .iconfont {
-        color: var(--theme-text-low);
-        font-size: 24px;
-        transition: transitions(color, 0.3s);
-      }
+    svg {
+      opacity: 0.6;
     }
   }
 

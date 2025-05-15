@@ -27,7 +27,12 @@
         <ul class="card-text--tag">
           {{- range $index, $director := . -}}
             {{- with $.Site.GetPage (printf "/%s/%s" $taxo $director) -}}
-              <li><a href="{{- .Permalink | safeURL -}}">{{- $director -}}</a></li>
+            <li>
+              <a href="{{- .Permalink | safeURL -}}">
+                {{- $.Site.Data.SVG.folder | safeHTML -}}
+                <span>{{- $director -}}</span>
+              </a>
+            </li>
             {{- end -}}
           {{- end -}}
         </ul>
@@ -38,7 +43,12 @@
         <ul class="card-text--tag">
           {{- range $index, $director := . -}}
             {{- with $.Site.GetPage (printf "/%s/%s" $taxo $director) -}}
-              <li><a href="{{- .Permalink | safeURL -}}">{{- $director -}}</a></li>
+            <li>
+              <a href="{{- .Permalink | safeURL -}}">
+                {{- $.Site.Data.SVG.tag | safeHTML -}}
+                <span>{{- $director -}}</span>
+              </a>
+            </li>
             {{- end -}}
           {{- end -}}
         </ul>

@@ -3,21 +3,7 @@
   <div class="social-icons">
     {{- range . -}}
       <a class="soft-size--primary soft-style--box" href="{{- .URL | safeURL -}}" target="_blank" rel="noopener noreferrer">
-        {{- if eq .Identifier "github" -}}  {{/* github */}}
-        <i class="iconfont icon-github"></i>
-        {{- end -}}
-        {{- if eq .Identifier "email" -}}  {{/* email */}}
-        <i class="iconfont icon-mail4"></i>
-        {{- end -}}
-        {{- if eq .Identifier "bilibili" -}}  {{/* bilibili */}}
-        <i class="iconfont icon-bilibilia"></i>
-        {{- end -}}
-        {{- if eq .Identifier "zhihu" -}}  {{/* zhihu */}}
-        <i class="iconfont icon-zhihu"></i>
-        {{- end -}}
-        {{- if eq .Identifier "csdn" -}}  {{/* csdn */}}
-        <i class="iconfont icon-csdn"></i>
-        {{- end -}}
+        {{- index $.Site.Data.social .Identifier | safeHTML -}}
       </a>
     {{- end -}}
   </div>
