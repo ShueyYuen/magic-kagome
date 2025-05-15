@@ -1,0 +1,11 @@
+{{/* 某一分类的文章列表 */}}
+{{- define "main" -}}
+  {{- $section := where .Site.RegularPages "Section" "in" (slice .Type) -}}
+  {{- $pag := .Paginate ($section) -}}
+  <div class="article-list layout-block">
+    {{- range $pag.Pages -}}
+      {{- partial "card/card-article.html" . -}}
+    {{- end -}}
+  </div>
+  {{- partial "pagination.html" . -}}
+{{- end -}}

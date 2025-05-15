@@ -4,10 +4,7 @@
 <body>
     {{- partial "header.html" . -}}
     <main id="content">
-        <div class="layout-block">
-            {{- block "main" . -}}{{- end -}}
-            {{- block "widget" . -}}{{- end -}}
-        </div>
+        {{- block "main" . -}}{{- end -}}
     </main>
     {{- partial "footer.html" . -}}
     {{- partial "footer-script" . -}}

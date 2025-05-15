@@ -1,16 +1,22 @@
 :root.theme-light {
   --docsearch-primary-color: #2ecc71;
 }
+
 :root.theme-dark {
   --docsearch-primary-color: #2ecc71;
 }
 
-svg .cls-1, svg .cls-2 {
+svg .cls-1,
+svg .cls-2 {
   fill: var(--docsearch-primary-color);
 }
 
 .DocSearch-NoResults-Prefill-List {
   margin-top: 10px;
+}
+
+#docsearch {
+  min-width: 165px;
 }
 
 @media #{$mq-mb} {
@@ -20,5 +26,9 @@ svg .cls-1, svg .cls-2 {
         margin: 0 auto;
       }
     }
+  }
+
+  #docsearch {
+    min-width: unset;
   }
 }
