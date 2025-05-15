@@ -9,7 +9,6 @@
     .card-cover {
       position: relative;
       overflow: hidden;
-      transition: 1s filter linear;
 
       >img {
         display: block;
@@ -39,6 +38,7 @@
     background-size: cover;
     background-image: #28c76f;
     background-image: linear-gradient(120deg, #81fbb8 10%, #28c76f 100%);
+    transition: 0.5s filter linear;
 
     &::after {
       content: "";
