@@ -3,9 +3,11 @@ author: {{ .Site.Params.author.name }}
 date: {{ .Date }}
 title: "{{ replace .Name "-" " " | title }}"
 description: 
-categories: ["Web"]
-tags: ["Music"]
+categories: []
+tags: []
 toc: true
-cover: 
+cover:
+cover_author:
+cover_source:
 draft: true
 ---
