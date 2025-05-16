@@ -34,15 +34,24 @@
       {{/* 如果当前页大于4，显示左侧省略号 */}}
       {{- if gt $currentPage 4 -}}
         <li class="page-item ellipsis">
-          {{- $jumpPageNum := sub $currentPage 5 -}}
-          {{- if lt $jumpPageNum 1 -}}
-            {{- $jumpPageNum = 1 -}}
+          {{- if eq $currentPage 5 }}
+            {{- $page := $pageFirst.Next -}}
+            <a href="{{- $page.URL -}}" class="page-link">{{- $page.PageNumber -}}</a>
+          {{- else -}}
+            {{- $jumpPageNum := sub $currentPage 5 -}}
+            {{- if lt $jumpPageNum 1 -}}
+              {{- $jumpPageNum = 1 -}}
+            {{- end -}}
+            {{- $jumpPage := false -}}
+            {{- range seq $jumpPageNum -}}
+              {{- if $jumpPage -}}
+                {{- $jumpPage = $jumpPage.Next -}}
+              {{- else -}}
+                {{- $jumpPage = $pageFirst -}}
+              {{- end -}}
+            {{- end -}}
+            <a href="{{- $jumpPage.URL -}}" class="page-link jump-link" title="前往前5页" aria-label="JumpBackward">{{ $.Site.Data.SVG.ellipsis | safeHTML }}{{ $.Site.Data.SVG.anglesLeft | safeHTML }}</a>
           {{- end -}}
-          {{- $jumpPage := $pages.First -}}
-          {{- range seq 2 $jumpPageNum -}}
-            {{- $jumpPage = $jumpPage.Next -}}
-          {{- end -}}
-          <a href="{{- $jumpPage.URL -}}" class="page-link jump-link" title="前往前5页" aria-label="JumpBackward">{{ $.Site.Data.SVG.ellipsis | safeHTML }}{{ $.Site.Data.SVG.anglesLeft | safeHTML }}</a>
         </li>
       {{- end -}}
 
@@ -80,15 +89,20 @@
       {{/* 如果当前页小于总页数-3，显示右侧省略号 */}}
       {{- if lt $currentPage (sub $totalPages 3) -}}
         <li class="page-item ellipsis">
-          {{- $jumpPageNum := add $currentPage 5 -}}
-          {{- if gt $jumpPageNum $totalPages -}}
-            {{- $jumpPageNum = $totalPages -}}
+          {{- if eq $currentPage (sub $totalPages 4) -}}
+            {{- $page := $pageLast.Prev -}}
+            <a href="{{- $page.URL -}}" class="page-link">{{- $page.PageNumber -}}</a>
+          {{- else -}}
+            {{- $jumpPageNum := add $currentPage 5 -}}
+            {{- if gt $jumpPageNum $totalPages -}}
+              {{- $jumpPageNum = $totalPages -}}
+            {{- end -}}
+            {{- $jumpPage := $pageFirst -}}
+            {{- range seq 2 $jumpPageNum -}}
+              {{- $jumpPage = $jumpPage.Next -}}
+            {{- end -}}
+            <a href="{{- $jumpPage.URL -}}" class="page-link jump-link" title="前往后5页" aria-label="JumpForward">{{ $.Site.Data.SVG.ellipsis | safeHTML }}{{ $.Site.Data.SVG.anglesRight | safeHTML }}</a>
           {{- end -}}
-          {{- $jumpPage := $pageFirst -}}
-          {{- range seq 2 $jumpPageNum -}}
-            {{- $jumpPage = $jumpPage.Next -}}
-          {{- end -}}
-          <a href="{{- $jumpPage.URL -}}" class="page-link jump-link" title="前往后5页" aria-label="JumpForward">{{ $.Site.Data.SVG.ellipsis | safeHTML }}{{ $.Site.Data.SVG.anglesRight | safeHTML }}</a>
         </li>
       {{- end -}}
 

@@ -1,6 +1,5 @@
 .pagination-container {
-  padding-top: 16px;
-  padding-bottom: 16px;
+  padding: 16px 0;
 
   .pagination-list {
     display: flex;
@@ -9,8 +8,8 @@
     user-select: none;
     list-style: none;
 
-    li {
-      margin: 0 3px;
+    .page-item {
+      margin: 0 2px;
       transition: color 0.3s ease;
       font-weight: bolder;
       font: var(--base-font);
@@ -64,4 +63,10 @@
       }
     }
   }
+}
+
+@media #{$mq-mb} {
+  .pagination-container .pagination-list .page-item > * {
+    padding: 4px 10px;
+  }  
 }
