@@ -17,7 +17,7 @@
     <p>当前视频av或BV号：{{ $vid }}，视频分P：{{ $videopage }}</p>
 {{ end }}
 
-<div class="video-wrapper" style="aspect-ratio: {{- $ratio | safeCSS -}};">
+<div class="iframe-video" style="aspect-ratio: {{- $ratio | safeCSS -}};">
     <iframe src="https://player.bilibili.com/player.html?{{ $basicQuery | safeURL }}&{{ $videoQuery | safeURL }}"
             width="100%"
             height="100%"
