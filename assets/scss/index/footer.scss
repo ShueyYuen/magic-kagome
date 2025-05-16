@@ -8,13 +8,14 @@
     justify-content: center;
     flex-wrap: wrap;
     padding-bottom: 20px;
+    gap: 10px;
 
     a {
       display: block;
       text-align: center;
-      margin: 10px;
-      width: 45px;
-      height: 45px;
+      width: 10%;
+      max-width: 45px;
+      aspect-ratio: 1;
       padding: 10px;
     }
 
