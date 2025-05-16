@@ -1,2 +1,4 @@
+{{ $id := (.Get "id") | default (.Get 0) }}
+{{ $autoplay := .Get "autoplay" | default 0 }}
 <!-- 输入的第一个参数为歌曲的id，第二个参数代表是否自动播放，1为自动播放，0为手动播放。 -->
-<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=100% height=86 src="//music.163.com/outchain/player?type=2&id={{ index .Params 0 }}&auto={{ index .Params 1 }}&height=66"></iframe>
+<iframe frameborder="no" border="0" marginwidth="0" marginheight="0" width=100% height=86 src="//music.163.com/outchain/player?type=2&id={{ $id }}&auto={{ $autoplay }}&height=66"></iframe>

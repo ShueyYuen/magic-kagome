@@ -1,5 +1,10 @@
-{{ $vid := (.Get 0) }}
-{{ $videopage := default 1 (.Get 1) }}
+{{ $vid := (.Get "id") | default (.Get 0) }}
+{{ $ratio := (.Get "ratio") | default (div 16.0 9.0) }}
+
+{{ $videopage := (.Get 1) | default (.Get "page") | default 1 }}
+{{ $autoplay := .Get "autoplay" | default 0 }}
+
+{{ $basicQuery := querify "app" "web" "autoplay" $autoplay "cid" 0 "aid" 0 "bvid" "" "p" $videopage }}
 {{ $basicQuery := querify "page" $videopage "high_quality" 1 "as_wide" 1 }}
 {{ $videoQuery := "" }}
 
@@ -12,8 +17,10 @@
     <p>当前视频av或BV号：{{ $vid }}，视频分P：{{ $videopage }}</p>
 {{ end }}
 
-<div class="video-wrapper">
+<div class="video-wrapper" style="aspect-ratio: {{- $ratio | safeCSS -}};">
     <iframe src="https://player.bilibili.com/player.html?{{ $basicQuery | safeURL }}&{{ $videoQuery | safeURL }}"
+            width="100%"
+            height="100%"
             scrolling="no"
             frameborder="no"
             framespacing="0"

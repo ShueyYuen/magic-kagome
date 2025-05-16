@@ -1,1 +1,3 @@
-<p style="text-align:{{ index .Params 0 }}">{{ index .Params 1 | markdownify }}</p>
+{{ $align := index .Params 0 | default "left" }}
+{{ $content := index .Params 1 | default .Inner | markdownify }}
+<p style="text-align:{{ $align | safeCSS }}">{{ $content }}</p>
