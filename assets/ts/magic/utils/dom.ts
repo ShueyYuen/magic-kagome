@@ -48,6 +48,31 @@ export class DomListener implements IDisposable {
   }
 }
 
+/**
+ * 全屏彩蛋会盖住页面。把侧边栏抬到画布之上，作者卡片上的操作提示仍可点击。
+ */
+export function liftWidgetInfo(): IDisposable {
+  const sidebar = document.querySelector<HTMLElement>('.widget-info');
+  if (!sidebar) {
+    return { dispose() { /* 列表页没有侧边栏 */ } };
+  }
+  const previous = sidebar.style.zIndex;
+  sidebar.style.zIndex = '10001';
+  return {
+    dispose() {
+      sidebar.style.zIndex = previous;
+    },
+  };
+}
+
+export function isTypingTarget(target: EventTarget | null): boolean {
+  if (!(target instanceof HTMLElement)) {
+    return false;
+  }
+  const tag = target.tagName;
+  return tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || target.isContentEditable;
+}
+
 export function requestPlainPage(): IDisposable {
   const stylesheet = new CSSStyleSheet();
   stylesheet.insertRule(`[data-plain="true"] [class*=soft-style] {

@@ -316,3 +316,55 @@ export class CanvasManager implements IDisposable {
     this.parentElement = null;
   }
 }
+
+export interface FullscreenStage {
+  readonly canvas: CanvasManager;
+  readonly ctx: CanvasRenderingContext2D;
+  width: number;
+  height: number;
+  /** 尺寸变化且画布已被清空之后调用，用来重排或重绘。 */
+  onResize?: () => void;
+  resize(): void;
+}
+
+/**
+ * 铺满视口的透明画布。挂在文章栏里，和侧边栏处于同一层叠上下文，方便把操作提示留在上面。
+ */
+export function createFullscreenStage(styles: Partial<CSSStyleDeclaration> = {}): FullscreenStage {
+  const canvas = new CanvasManager({
+    autoResize: false,
+    styles: {
+      position: 'fixed',
+      top: '0',
+      left: '0',
+      display: 'block',
+      zIndex: '20',
+      ...styles,
+    },
+  });
+  const ctx = canvas.getContext('2d');
+  if (!ctx) {
+    canvas.dispose();
+    throw new Error('2d context unavailable');
+  }
+  canvas.element.setAttribute('aria-hidden', 'true');
+
+  const stage: FullscreenStage = {
+    canvas,
+    ctx,
+    width: 0,
+    height: 0,
+    resize() {
+      stage.width = window.innerWidth;
+      stage.height = window.innerHeight;
+      canvas.setSize(stage.width, stage.height, true);
+      stage.onResize?.();
+    },
+  };
+  stage.resize();
+
+  const parent = document.querySelector('.single-container') ?? document.body;
+  canvas.mount(parent);
+  canvas.linkSize(document.documentElement, () => stage.resize());
+  return stage;
+}
