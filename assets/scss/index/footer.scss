@@ -29,10 +29,10 @@
     max-width: 76%;
     height: 5px;
     background: linear-gradient(45deg,
-    #D83A56 0, #D83A56 25%,
-    #FF616D 25%, #FF616D 50%,
-    #B6C9F0 50%, #B6C9F0 75%,
-    #66DE93 75%, #66DE93 100%);
+    var(--theme-brand-color1) 0, var(--theme-brand-color1) 25%,
+    var(--theme-brand-color2) 25%, var(--theme-brand-color2) 50%,
+    var(--theme-brand-color3) 50%, var(--theme-brand-color3) 75%,
+    var(--theme-brand-color4) 75%, var(--theme-brand-color4) 100%);
     margin: auto;
   }
 

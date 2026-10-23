@@ -56,7 +56,16 @@ $dark-text-focus: #54c482;
 $dark-text-focus2: #bad1c4;
 $dark-blockquote: rgba(67, 76, 82, 0.5);
 
+@mixin brand-color {
+  --theme-brand-color1: #D83A56;
+  --theme-brand-color2: #FF616D;
+  --theme-brand-color3: #B6C9F0;
+  --theme-brand-color4: #66DE93;
+}
+
 @mixin theme-light {
+  @include brand-color;
+
   --theme-bg-primary: #{$light-bg-primary};
   --theme-bg-high: #{$light-bg-high};
   --theme-bg-shadow: #{$light-bg-shadow};
@@ -96,9 +105,9 @@ $dark-blockquote: rgba(67, 76, 82, 0.5);
   }
 }
 
-
-
 @mixin theme-dark {
+  @include brand-color;
+
   --theme-bg-primary: #{$dark-bg-primary};
   --theme-bg-high: #{$dark-bg-high};
   --theme-bg-shadow: #{$dark-bg-shadow};
