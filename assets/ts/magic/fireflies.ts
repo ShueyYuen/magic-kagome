@@ -6,7 +6,7 @@
 import { ElementAnimator } from './utils/animation';
 import { createFullscreenStage, FullscreenStage } from './utils/canvas';
 import { Disposable } from './utils/disposable';
-import { DomListener, liftWidgetInfo } from './utils/dom';
+import { DomListener } from './utils/dom';
 import { perlin2, seed } from './utils/perlin';
 import { renderTips } from './utils/tips-render';
 
@@ -185,7 +185,6 @@ class Fireflies extends Disposable {
 }
 
 onActivate((context) => {
-  context.add(liftWidgetInfo());
   const fireflies = context.add(new Fireflies());
   void ElementAnimator.show(fireflies.element);
 

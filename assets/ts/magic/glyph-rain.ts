@@ -6,7 +6,7 @@
 import { ElementAnimator } from './utils/animation';
 import { createFullscreenStage, FullscreenStage } from './utils/canvas';
 import { Disposable } from './utils/disposable';
-import { DomListener, liftWidgetInfo } from './utils/dom';
+import { DomListener } from './utils/dom';
 import { renderTips } from './utils/tips-render';
 
 interface Drop {
@@ -165,7 +165,6 @@ class GlyphRain extends Disposable {
 }
 
 onActivate((context) => {
-  context.add(liftWidgetInfo());
   const rain = context.add(new GlyphRain());
   void ElementAnimator.show(rain.element);
 

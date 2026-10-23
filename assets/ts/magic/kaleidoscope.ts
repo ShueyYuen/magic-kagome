@@ -6,7 +6,7 @@
 import { ElementAnimator } from './utils/animation';
 import { createFullscreenStage, FullscreenStage } from './utils/canvas';
 import { Disposable } from './utils/disposable';
-import { DomListener, isTypingTarget, liftWidgetInfo } from './utils/dom';
+import { DomListener, isTypingTarget, liftAuthorCard } from './utils/dom';
 import { renderTips } from './utils/tips-render';
 
 interface Stroke {
@@ -210,7 +210,7 @@ class Kaleidoscope extends Disposable {
 }
 
 onActivate((context) => {
-  context.add(liftWidgetInfo());
+  context.add(liftAuthorCard());
   const toy = context.add(new Kaleidoscope());
   void ElementAnimator.show(toy.element);
 

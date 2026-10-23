@@ -328,7 +328,7 @@ export interface FullscreenStage {
 }
 
 /**
- * 铺满视口的透明画布。挂在文章栏里，和侧边栏处于同一层叠上下文，方便把操作提示留在上面。
+ * 铺满视口的透明画布，盖在页面和侧栏上面。
  */
 export function createFullscreenStage(styles: Partial<CSSStyleDeclaration> = {}): FullscreenStage {
   const canvas = new CanvasManager({
