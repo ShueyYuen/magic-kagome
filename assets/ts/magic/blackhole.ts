@@ -314,7 +314,7 @@ vec3 trace(vec3 ro, vec3 rd) {
       }
 
       float rNow = 1.0 / max(u, 1e-4);
-      if (!done && (u <= 1e-4 || (rNow > 88.0 && w < 0.0))) {
+      if (!done && (u <= 1e-4 || (rNow > 480.0 && w < 0.0))) {
         col = starfield(normalize(pos));
         done = true;
       }
@@ -1174,7 +1174,7 @@ class BlackHole extends Disposable {
     const mass = mix(0.18, 1, grow);
     const tilt = clamp(mix(0, 1.32, cine) + this.lookPitch, 0, 1.48);
     const yaw = this.lookYaw;
-    const camR = clamp(mix(BASE_CAM_R, 60, cine) + this.zoom, 28, 96);
+    const camR = clamp(mix(BASE_CAM_R, 118, cine) + this.zoom, 28, 180);
 
     gl.useProgram(program);
     gl.activeTexture(gl.TEXTURE0);
